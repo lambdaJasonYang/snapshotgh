@@ -8,6 +8,7 @@ import Alert from '../components/Alert'
 import {useEffect, useState} from 'react'
 // import styles from '../styles/Home.module.css'
 
+import html2canvas from 'html2canvas'
 
 
 export default function Home() {
@@ -18,6 +19,11 @@ export default function Home() {
   }
   const clickGETSOME = (event: any) => {
     setURL((old)=>event.target.value)
+  }
+  const htmlDocStr = () => {
+    html2canvas(document.querySelector("iframe")!.contentDocument?.documentElement!,{useCORS: true,}).then(canvas => {
+      document.body.appendChild(canvas)
+  });
   }
 
   return (
@@ -52,6 +58,7 @@ export default function Home() {
       <main className="main">
         <input type="text" onChange={clickGETSOME}></input>
         <button onClick={GETSOME}>GET SOME</button>
+        <button onClick={htmlDocStr}>SNAP IT AND CANVAS</button>
         <iframe src={getURL}></iframe>
       <NavBar logo ={<NavLogo/>} > 
         <NavItem label="hi" link="#" />
